@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { formatLink, resolveMode, resolveText, resolveUrl } from '../src/copy-utils.js';
+import { formatLink, isRichTextMode, resolveMode, resolveText, resolveUrl } from '../src/copy-utils.js';
 
 test('formatLink outputs markdown by default mode', () => {
   const value = formatLink({
@@ -11,13 +11,28 @@ test('formatLink outputs markdown by default mode', () => {
   assert.equal(value, '[Example](https://example.com)');
 });
 
-test('formatLink outputs slack format', () => {
+test('formatLink outputs slack format as HTML anchor', () => {
   const value = formatLink({
     mode: 'slack',
     text: 'Example',
     url: 'https://example.com',
   });
-  assert.equal(value, '<https://example.com|Example>');
+  assert.equal(value, '<a href="https://example.com">Example</a>');
+});
+
+test('formatLink escapes HTML special characters in slack format', () => {
+  const value = formatLink({
+    mode: 'slack',
+    text: 'Test <script> & "quotes"',
+    url: 'https://example.com?a=1&b=2',
+  });
+  assert.equal(value, '<a href="https://example.com?a=1&amp;b=2">Test &lt;script&gt; &amp; &quot;quotes&quot;</a>');
+});
+
+test('isRichTextMode returns true for slack mode', () => {
+  assert.equal(isRichTextMode('slack'), true);
+  assert.equal(isRichTextMode('markdown'), false);
+  assert.equal(isRichTextMode('plain'), false);
 });
 
 test('formatLink outputs plain format', () => {
