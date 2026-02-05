@@ -1,6 +1,5 @@
 import { formatLink, resolveMode, resolveText, resolveUrl } from './copy-utils.js';
 const MENU_ROOT = 'link-copy-formats';
-const MENU_URL = 'copy-url';
 const MENU_MARKDOWN = 'copy-markdown';
 const MENU_SLACK = 'copy-slack';
 const MENU_PLAIN = 'copy-plain';
@@ -24,12 +23,6 @@ async function createMenus() {
     contexts,
   });
 
-  chrome.contextMenus.create({
-    id: MENU_URL,
-    parentId: MENU_ROOT,
-    title: 'Current Page URL',
-    contexts,
-  });
 
   chrome.contextMenus.create({
     id: MENU_MARKDOWN,
@@ -92,8 +85,7 @@ async function writeClipboard(tabId, text) {
 }
 
 async function showCopiedToast(tabId, mode) {
-  const modeLabel =
-    mode === 'url' ? 'URL' : mode === 'slack' ? 'Slack' : mode === 'plain' ? 'Plain' : 'Markdown';
+  const modeLabel = mode === 'slack' ? 'Slack' : mode === 'plain' ? 'Plain' : 'Markdown';
   await chrome.scripting.executeScript({
     target: { tabId },
     args: [modeLabel],
