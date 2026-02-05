@@ -16,39 +16,40 @@ async function getSettings() {
 
 async function createMenus() {
   await chrome.contextMenus.removeAll();
+  const contexts = ['page', 'selection', 'link', 'editable', 'image', 'video', 'audio'];
 
   chrome.contextMenus.create({
     id: MENU_ROOT,
     title: 'Copy Link As',
-    contexts: ['page', 'selection', 'link'],
+    contexts,
   });
 
   chrome.contextMenus.create({
     id: MENU_QUICK,
     parentId: MENU_ROOT,
     title: 'Quick Copy (Default)',
-    contexts: ['page', 'selection', 'link'],
+    contexts,
   });
 
   chrome.contextMenus.create({
     id: MENU_MARKDOWN,
     parentId: MENU_ROOT,
     title: 'Markdown',
-    contexts: ['page', 'selection', 'link'],
+    contexts,
   });
 
   chrome.contextMenus.create({
     id: MENU_SLACK,
     parentId: MENU_ROOT,
     title: 'Slack',
-    contexts: ['page', 'selection', 'link'],
+    contexts,
   });
 
   chrome.contextMenus.create({
     id: MENU_PLAIN,
     parentId: MENU_ROOT,
     title: 'Plain',
-    contexts: ['page', 'selection', 'link'],
+    contexts,
   });
 }
 
@@ -56,10 +57,8 @@ async function getPageState(tabId) {
   const [{ result }] = await chrome.scripting.executeScript({
     target: { tabId },
     func: () => {
-      const selected = window.getSelection()?.toString().trim() || '';
       return {
         title: document.title || '',
-        selection: selected,
         url: window.location.href,
       };
     },
@@ -92,6 +91,44 @@ async function writeClipboard(tabId, text) {
   });
 }
 
+async function showCopiedToast(tabId, mode) {
+  const modeLabel = mode === 'slack' ? 'Slack' : mode === 'plain' ? 'Plain' : 'Markdown';
+  await chrome.scripting.executeScript({
+    target: { tabId },
+    args: [modeLabel],
+    func: (label) => {
+      const id = '__copy_link_as_toast__';
+      const existing = document.getElementById(id);
+      if (existing) existing.remove();
+
+      const toast = document.createElement('div');
+      toast.id = id;
+      toast.textContent = `Copied as ${label}`;
+      toast.style.position = 'fixed';
+      toast.style.top = '16px';
+      toast.style.right = '16px';
+      toast.style.zIndex = '2147483647';
+      toast.style.padding = '10px 12px';
+      toast.style.borderRadius = '10px';
+      toast.style.background = 'rgba(20, 20, 20, 0.92)';
+      toast.style.color = '#fff';
+      toast.style.fontSize = '13px';
+      toast.style.fontFamily = '-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif';
+      toast.style.boxShadow = '0 8px 20px rgba(0,0,0,.25)';
+      toast.style.transition = 'opacity 180ms ease';
+      toast.style.opacity = '1';
+      document.documentElement.appendChild(toast);
+
+      window.setTimeout(() => {
+        toast.style.opacity = '0';
+      }, 1100);
+      window.setTimeout(() => {
+        toast.remove();
+      }, 1300);
+    },
+  });
+}
+
 async function copyFromTab(tabId, mode, info = {}) {
   if (!tabId) return;
 
@@ -101,6 +138,7 @@ async function copyFromTab(tabId, mode, info = {}) {
   const formatted = formatLink({ mode, text, url });
 
   await writeClipboard(tabId, formatted);
+  await showCopiedToast(tabId, mode);
 }
 
 chrome.runtime.onInstalled.addListener(async () => {
@@ -109,6 +147,10 @@ chrome.runtime.onInstalled.addListener(async () => {
 
 chrome.runtime.onStartup.addListener(async () => {
   await createMenus();
+});
+
+createMenus().catch((error) => {
+  console.error('Failed to initialize context menus:', error);
 });
 
 chrome.contextMenus.onClicked.addListener(async (info, tab) => {
@@ -136,5 +178,16 @@ chrome.commands.onCommand.addListener(async (command) => {
     await copyFromTab(tab.id, settings.defaultMode);
   } catch (error) {
     console.error('Quick copy failed:', error);
+  }
+});
+
+chrome.action.onClicked.addListener(async (tab) => {
+  if (!tab?.id) return;
+  const settings = await getSettings();
+
+  try {
+    await copyFromTab(tab.id, settings.defaultMode);
+  } catch (error) {
+    console.error('Action click copy failed:', error);
   }
 });

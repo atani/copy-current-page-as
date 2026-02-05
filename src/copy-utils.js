@@ -22,14 +22,9 @@ export function resolveMode(menuItemId, defaultMode) {
 }
 
 export function resolveText(info = {}, pageState = {}) {
-  return (
-    (info.selectionText || '').trim() ||
-    pageState.selection ||
-    pageState.title ||
-    pageState.url
-  );
+  return pageState.title || pageState.url;
 }
 
 export function resolveUrl(info = {}, pageState = {}) {
-  return info.linkUrl || info.pageUrl || pageState.url;
+  return pageState.url;
 }

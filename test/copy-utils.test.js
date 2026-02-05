@@ -45,35 +45,20 @@ test('resolveMode maps known menu ids and falls back to default', () => {
   assert.equal(resolveMode('copy-quick', 'markdown'), 'markdown');
 });
 
-test('resolveText prioritizes selected text, then page selection, then title', () => {
-  const info = { selectionText: '  from-menu  ' };
-  const pageState = {
-    selection: 'from-page-selection',
-    title: 'Page Title',
-    url: 'https://example.com',
-  };
-  assert.equal(resolveText(info, pageState), 'from-menu');
-
-  assert.equal(
-    resolveText({}, pageState),
-    'from-page-selection',
-  );
-
+test('resolveText uses page title and falls back to page url', () => {
   assert.equal(
     resolveText({}, { title: 'Page Title', url: 'https://example.com' }),
     'Page Title',
   );
+  assert.equal(
+    resolveText({}, { title: '', url: 'https://example.com' }),
+    'https://example.com',
+  );
 });
 
-test('resolveUrl prioritizes linkUrl, then pageUrl, then pageState url', () => {
-  const pageState = { url: 'https://fallback.example' };
+test('resolveUrl always uses current page url', () => {
   assert.equal(
-    resolveUrl({ linkUrl: 'https://link.example', pageUrl: 'https://page.example' }, pageState),
-    'https://link.example',
+    resolveUrl({ linkUrl: 'https://link.example', pageUrl: 'https://page.example' }, { url: 'https://current.example' }),
+    'https://current.example',
   );
-  assert.equal(
-    resolveUrl({ pageUrl: 'https://page.example' }, pageState),
-    'https://page.example',
-  );
-  assert.equal(resolveUrl({}, pageState), 'https://fallback.example');
 });
