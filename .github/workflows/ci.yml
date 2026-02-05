@@ -30,8 +30,8 @@ jobs:
       - uses: actions/checkout@v6
       - name: Build zip artifact
         run: |
-          zip -r copy-link-as.zip manifest.json src options icons README.md
+          zip -r copy-current-page-as.zip manifest.json src options icons README.md
       - uses: actions/upload-artifact@v6
         with:
-          name: copy-link-as
-          path: copy-link-as.zip
+          name: copy-current-page-as
+          path: copy-current-page-as.zip

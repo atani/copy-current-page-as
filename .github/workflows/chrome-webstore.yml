@@ -20,7 +20,7 @@ jobs:
           node-version: 20
 
       - name: Build extension zip
-        run: zip -r copy-link-as.zip manifest.json src options README.md
+        run: zip -r copy-current-page-as.zip manifest.json src options README.md
 
       - name: Upload to Chrome Web Store
         env:
@@ -30,7 +30,7 @@ jobs:
           REFRESH_TOKEN: ${{ secrets.CHROME_REFRESH_TOKEN }}
         run: |
           npx chrome-webstore-upload-cli upload \
-            --source copy-link-as.zip \
+            --source copy-current-page-as.zip \
             --extension-id "$EXTENSION_ID" \
             --client-id "$CLIENT_ID" \
             --client-secret "$CLIENT_SECRET" \
