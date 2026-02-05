@@ -1,0 +1,25 @@
+{
+  "manifest_version": 3,
+  "name": "Copy Link As",
+  "version": "0.1.0",
+  "description": "Copy page links as Markdown, Slack, or plain text.",
+  "permissions": ["contextMenus", "storage", "scripting"],
+  "host_permissions": ["http://*/*", "https://*/*"],
+  "background": {
+    "service_worker": "src/background.js",
+    "type": "module"
+  },
+  "options_page": "options/options.html",
+  "commands": {
+    "quick-copy-link": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+C",
+        "mac": "Command+Shift+C"
+      },
+      "description": "Quick copy link using default format"
+    }
+  },
+  "action": {
+    "default_title": "Copy Link As"
+  }
+}
