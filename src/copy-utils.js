@@ -1,4 +1,5 @@
 export const MENU_TO_MODE = {
+  'copy-url': 'url',
   'copy-markdown': 'markdown',
   'copy-slack': 'slack',
   'copy-plain': 'plain',
@@ -7,6 +8,8 @@ export const MENU_TO_MODE = {
 export function formatLink({ mode, text, url }) {
   const label = (text || '').trim() || url;
   switch (mode) {
+    case 'url':
+      return url;
     case 'slack':
       return `<${url}|${label}>`;
     case 'plain':

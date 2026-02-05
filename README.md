@@ -1,7 +1,8 @@
 # Copy Current Page As (Chrome Extension)
 
-A Chrome extension that copies the current page title + URL in one of these formats:
+A Chrome extension that copies the current page in one of these formats:
 
+- URL: `url`
 - Markdown: `[text](url)`
 - Slack: `<url|text>`
 - Plain: `text - url`

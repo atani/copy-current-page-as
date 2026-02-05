@@ -11,6 +11,15 @@ test('formatLink outputs markdown by default mode', () => {
   assert.equal(value, '[Example](https://example.com)');
 });
 
+test('formatLink outputs url mode', () => {
+  const value = formatLink({
+    mode: 'url',
+    text: 'Example',
+    url: 'https://example.com',
+  });
+  assert.equal(value, 'https://example.com');
+});
+
 test('formatLink outputs slack format', () => {
   const value = formatLink({
     mode: 'slack',
@@ -39,10 +48,11 @@ test('formatLink falls back to url when text is empty', () => {
 });
 
 test('resolveMode maps known menu ids and falls back to default', () => {
+  assert.equal(resolveMode('copy-url', 'markdown'), 'url');
   assert.equal(resolveMode('copy-markdown', 'slack'), 'markdown');
   assert.equal(resolveMode('copy-slack', 'markdown'), 'slack');
   assert.equal(resolveMode('copy-plain', 'markdown'), 'plain');
-  assert.equal(resolveMode('copy-quick', 'markdown'), 'markdown');
+  assert.equal(resolveMode('copy-unknown', 'markdown'), 'markdown');
 });
 
 test('resolveText uses page title and falls back to page url', () => {

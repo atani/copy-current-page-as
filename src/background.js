@@ -1,6 +1,6 @@
 import { formatLink, resolveMode, resolveText, resolveUrl } from './copy-utils.js';
 const MENU_ROOT = 'link-copy-formats';
-const MENU_QUICK = 'copy-quick';
+const MENU_URL = 'copy-url';
 const MENU_MARKDOWN = 'copy-markdown';
 const MENU_SLACK = 'copy-slack';
 const MENU_PLAIN = 'copy-plain';
@@ -25,9 +25,9 @@ async function createMenus() {
   });
 
   chrome.contextMenus.create({
-    id: MENU_QUICK,
+    id: MENU_URL,
     parentId: MENU_ROOT,
-    title: 'Quick Copy (Default)',
+    title: 'Current Page URL',
     contexts,
   });
 
@@ -92,7 +92,8 @@ async function writeClipboard(tabId, text) {
 }
 
 async function showCopiedToast(tabId, mode) {
-  const modeLabel = mode === 'slack' ? 'Slack' : mode === 'plain' ? 'Plain' : 'Markdown';
+  const modeLabel =
+    mode === 'url' ? 'URL' : mode === 'slack' ? 'Slack' : mode === 'plain' ? 'Plain' : 'Markdown';
   await chrome.scripting.executeScript({
     target: { tabId },
     args: [modeLabel],
