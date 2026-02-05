@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Copy Link As",
+  "name": "Copy Current Page As",
   "version": "0.1.0",
-  "description": "Copy page links as Markdown, Slack, or plain text.",
+  "description": "Copy the current page title and URL as Markdown, Slack, or plain text.",
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
@@ -16,16 +16,16 @@
   },
   "options_page": "options/options.html",
   "commands": {
-    "quick-copy-link": {
+    "quick-copy-current-page": {
       "suggested_key": {
         "default": "Ctrl+Shift+C",
         "mac": "Command+Shift+C"
       },
-      "description": "Quick copy link using default format"
+      "description": "Quick copy current page using default format"
     }
   },
   "action": {
-    "default_title": "Copy Link As",
+    "default_title": "Copy Current Page As",
     "default_icon": {
       "16": "icons/icon16.png",
       "48": "icons/icon48.png",

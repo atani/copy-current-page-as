@@ -20,7 +20,7 @@ async function createMenus() {
 
   chrome.contextMenus.create({
     id: MENU_ROOT,
-    title: 'Copy Link As',
+    title: 'Copy Current Page As',
     contexts,
   });
 
@@ -97,7 +97,7 @@ async function showCopiedToast(tabId, mode) {
     target: { tabId },
     args: [modeLabel],
     func: (label) => {
-      const id = '__copy_link_as_toast__';
+      const id = '__copy_current_page_as_toast__';
       const existing = document.getElementById(id);
       if (existing) existing.remove();
 
@@ -167,7 +167,7 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
 });
 
 chrome.commands.onCommand.addListener(async (command) => {
-  if (command !== 'quick-copy-link') return;
+  if (command !== 'quick-copy-current-page') return;
 
   const [tab] = await chrome.tabs.query({ active: true, lastFocusedWindow: true });
   if (!tab?.id) return;

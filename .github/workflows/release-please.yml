@@ -28,9 +28,9 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - name: Build zip asset
-        run: zip -r copy-link-as.zip manifest.json src options README.md
+        run: zip -r copy-current-page-as.zip manifest.json src options README.md
       - name: Upload to GitHub Release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release upload ${{ needs.release-please.outputs.tag_name }} copy-link-as.zip#copy-link-as.zip
+          gh release upload ${{ needs.release-please.outputs.tag_name }} copy-current-page-as.zip#copy-current-page-as.zip
