@@ -3,7 +3,7 @@
 A Chrome extension that copies the current page in one of these formats:
 
 - Markdown: `[text](url)`
-- Slack: `<url|text>`
+- Slack: rich text link (HTML anchor)
 - Plain: `text - url`
 
 ## Usage
