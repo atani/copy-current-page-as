@@ -26,7 +26,7 @@ jobs:
     if: ${{ needs.release-please.outputs.release_created }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Build zip asset
         run: zip -r copy-link-as.zip manifest.json src options README.md
       - name: Upload to GitHub Release
