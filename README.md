@@ -8,10 +8,9 @@
 
 ## 使い方
 
-1. `chrome://extensions` を開く
-2. デベロッパーモードを ON
-3. 「パッケージ化されていない拡張機能を読み込む」でこのフォルダを選択
-4. 任意のページで
+1. Chrome Web Store から拡張をインストール
+   - URL: （ここにストアURLを貼る）
+2. 任意のページで
    - 右クリック -> `Copy Link As` -> 形式を選択
    - もしくはショートカット `Cmd+Shift+C`（Mac）/`Ctrl+Shift+C`（Windows/Linux）
 
@@ -31,20 +30,21 @@
 npm test
 ```
 
-## Chrome Web Store 自動申請
+## 開発の仕方
 
-`release` 公開時（または手動実行）に、GitHub Actions から Chrome Web Store へ
-拡張をアップロードして公開できます。
+1. 依存をインストール
 
-Workflow: `.github/workflows/chrome-webstore.yml`
+```bash
+npm install
+```
 
-以下の Secrets を GitHub リポジトリに設定してください。
+2. テストを実行
 
-- `CHROME_EXTENSION_ID`
-- `CHROME_CLIENT_ID`
-- `CHROME_CLIENT_SECRET`
-- `CHROME_REFRESH_TOKEN`
+```bash
+npm test
+```
 
-> 注意:
-> - 初回公開時は Chrome Web Store 側でストア情報の入力や審査対応が必要です。
-> - API 公開設定によっては、公開までに追加承認が必要になる場合があります。
+3. 拡張をローカルで読み込む
+   - `chrome://extensions` を開く
+   - デベロッパーモードを ON
+   - 「パッケージ化されていない拡張機能を読み込む」でこのフォルダを選択
