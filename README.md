@@ -30,3 +30,21 @@
 ```bash
 npm test
 ```
+
+## Chrome Web Store 自動申請
+
+`release` 公開時（または手動実行）に、GitHub Actions から Chrome Web Store へ
+拡張をアップロードして公開できます。
+
+Workflow: `.github/workflows/chrome-webstore.yml`
+
+以下の Secrets を GitHub リポジトリに設定してください。
+
+- `CHROME_EXTENSION_ID`
+- `CHROME_CLIENT_ID`
+- `CHROME_CLIENT_SECRET`
+- `CHROME_REFRESH_TOKEN`
+
+> 注意:
+> - 初回公開時は Chrome Web Store 側でストア情報の入力や審査対応が必要です。
+> - API 公開設定によっては、公開までに追加承認が必要になる場合があります。
