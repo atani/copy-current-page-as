@@ -1,9 +1,9 @@
 # Copy Current Page As (Chrome Extension)
 
-A Chrome extension that copies the current page title + URL in one of these formats:
+A Chrome extension that copies the current page in one of these formats:
 
 - Markdown: `[text](url)`
-- Slack: `<url|text>`
+- Slack: rich text link (HTML anchor)
 - Plain: `text - url`
 
 ## Usage
@@ -42,3 +42,7 @@ npm test
    - Open `chrome://extensions`
    - Enable Developer mode
    - Click "Load unpacked" and select this folder
+
+## Support
+
+[![GitHub Sponsors](https://img.shields.io/badge/Sponsor-%E2%9D%A4-ea4aaa?logo=github)](https://github.com/sponsors/atani)

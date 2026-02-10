@@ -20,7 +20,7 @@ jobs:
           node-version: 20
 
       - name: Build extension zip
-        run: zip -r copy-current-page-as.zip manifest.json src options README.md
+        run: zip -r copy-current-page-as.zip manifest.json src options icons README.md
 
       - name: Upload to Chrome Web Store
         env:

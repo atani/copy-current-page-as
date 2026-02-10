@@ -1,6 +1,5 @@
-import { formatLink, resolveMode, resolveText, resolveUrl } from './copy-utils.js';
+import { formatLink, isRichTextMode, resolveMode, resolveText, resolveUrl } from './copy-utils.js';
 const MENU_ROOT = 'link-copy-formats';
-const MENU_QUICK = 'copy-quick';
 const MENU_MARKDOWN = 'copy-markdown';
 const MENU_SLACK = 'copy-slack';
 const MENU_PLAIN = 'copy-plain';
@@ -24,12 +23,6 @@ async function createMenus() {
     contexts,
   });
 
-  chrome.contextMenus.create({
-    id: MENU_QUICK,
-    parentId: MENU_ROOT,
-    title: 'Quick Copy (Default)',
-    contexts,
-  });
 
   chrome.contextMenus.create({
     id: MENU_MARKDOWN,
@@ -67,17 +60,26 @@ async function getPageState(tabId) {
   return result;
 }
 
-async function writeClipboard(tabId, text) {
+async function writeClipboard(tabId, text, { richText = false } = {}) {
   await chrome.scripting.executeScript({
     target: { tabId },
-    args: [text],
-    func: async (value) => {
+    args: [text, richText],
+    func: async (value, isRichText) => {
       try {
-        await navigator.clipboard.writeText(value);
+        if (isRichText) {
+          await navigator.clipboard.write([
+            new ClipboardItem({
+              'text/html': new Blob([value], { type: 'text/html' }),
+              'text/plain': new Blob([value.replace(/<[^>]*>/g, '')], { type: 'text/plain' }),
+            }),
+          ]);
+        } else {
+          await navigator.clipboard.writeText(value);
+        }
         return;
       } catch (_) {
         const textarea = document.createElement('textarea');
-        textarea.value = value;
+        textarea.value = isRichText ? value.replace(/<[^>]*>/g, '') : value;
         textarea.setAttribute('readonly', '');
         textarea.style.position = 'fixed';
         textarea.style.opacity = '0';
@@ -137,7 +139,7 @@ async function copyFromTab(tabId, mode, info = {}) {
   const url = resolveUrl(info, pageState);
   const formatted = formatLink({ mode, text, url });
 
-  await writeClipboard(tabId, formatted);
+  await writeClipboard(tabId, formatted, { richText: isRichTextMode(mode) });
   await showCopiedToast(tabId, mode);
 }
 
