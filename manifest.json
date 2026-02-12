@@ -18,10 +18,17 @@
   "commands": {
     "quick-copy-current-page": {
       "suggested_key": {
-        "default": "Ctrl+Shift+C",
-        "mac": "Command+Shift+C"
+        "default": "Ctrl+Shift+E",
+        "mac": "Command+Shift+E"
       },
       "description": "Quick copy current page using default format"
+    },
+    "quick-copy-slack": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+F",
+        "mac": "Command+Shift+F"
+      },
+      "description": "Quick copy current page as Slack format"
     }
   },
   "action": {

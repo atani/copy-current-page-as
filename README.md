@@ -12,7 +12,8 @@ A Chrome extension that copies the current page in one of these formats:
    - URL: (put your store URL here)
 2. On any page:
    - Right click -> `Copy Current Page As` -> choose a format
-   - Or use shortcut: `Cmd+Shift+C` (Mac) / `Ctrl+Shift+C` (Windows/Linux)
+   - Default format shortcut: `Cmd+Shift+E` (Mac) / `Ctrl+Shift+E` (Windows/Linux)
+   - Slack format shortcut: `Cmd+Shift+F` (Mac) / `Ctrl+Shift+F` (Windows/Linux)
 
 ## Behavior
 
