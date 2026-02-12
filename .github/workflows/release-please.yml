@@ -18,7 +18,8 @@ jobs:
       - uses: googleapis/release-please-action@v4
         id: release
         with:
-          release-type: simple
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
 
   upload-release-asset:
     name: Upload Release Asset
