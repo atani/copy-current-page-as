@@ -169,15 +169,21 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
 });
 
 chrome.commands.onCommand.addListener(async (command) => {
-  if (command !== 'quick-copy-current-page') return;
-
   const [tab] = await chrome.tabs.query({ active: true, lastFocusedWindow: true });
   if (!tab?.id) return;
 
-  const settings = await getSettings();
+  let mode;
+  if (command === 'quick-copy-current-page') {
+    const settings = await getSettings();
+    mode = settings.defaultMode;
+  } else if (command === 'quick-copy-slack') {
+    mode = 'slack';
+  } else {
+    return;
+  }
 
   try {
-    await copyFromTab(tab.id, settings.defaultMode);
+    await copyFromTab(tab.id, mode);
   } catch (error) {
     console.error('Quick copy failed:', error);
   }

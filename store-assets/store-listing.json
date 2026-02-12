@@ -1,0 +1,54 @@
+{
+  "$schema": "./store-listing.schema.json",
+  "_comment": "Chrome Web Store 初回申請用のストアリスティング情報",
+
+  "product_details": {
+    "name": "Copy Current Page As",
+    "summary": "Copy the current page title and URL as Markdown, Slack, or plain text.",
+    "description": "Copy Current Page As は、現在閲覧しているページのタイトルとURLを様々なフォーマットでコピーできるシンプルな拡張機能です。\n\n【対応フォーマット】\n• Markdown: [タイトル](URL)\n• Slack: リッチテキストリンク\n• Plain: タイトル - URL\n\n【使い方】\n• 右クリック → 「Copy Current Page As」 → フォーマットを選択\n• デフォルト形式: Cmd+Shift+E (Mac) / Ctrl+Shift+E (Windows/Linux)\n• Slack形式: Cmd+Shift+F (Mac) / Ctrl+Shift+F (Windows/Linux)\n\n【特徴】\n• 常に現在のページタイトルをリンクテキストとして使用\n• テキスト選択やリンク上での右クリックに依存しない\n• オプションページでデフォルトフォーマットを設定可能\n\nシンプルで軽量、必要な機能だけを提供します。",
+    "category": "productivity",
+    "language": "ja"
+  },
+
+  "graphic_assets": {
+    "store_icon": "icons/icon128.png",
+    "screenshots": [
+      "store-assets/screenshots/01-context-menu.png",
+      "store-assets/screenshots/02-options.png"
+    ],
+    "youtube_video_url": "",
+    "small_promo_tile": "store-assets/promo/tile-440x280.png",
+    "marquee_tile": ""
+  },
+
+  "additional_fields": {
+    "official_url": "",
+    "homepage_url": "https://github.com/atani/copy-current-page-as",
+    "support_url": "https://github.com/atani/copy-current-page-as/issues",
+    "mature_content": false
+  },
+
+  "privacy": {
+    "single_purpose": "現在のページのタイトルとURLを、ユーザーが選択したフォーマット（Markdown、Slack、プレーンテキスト）でクリップボードにコピーする。",
+    "permissions_justification": {
+      "contextMenus": "右クリックメニューにコピーオプションを追加するために必要",
+      "storage": "ユーザーが選択したデフォルトフォーマットの設定を保存するために必要",
+      "scripting": "現在のページにコピー完了トーストを表示するために必要"
+    },
+    "host_permissions_justification": {
+      "http://*/*": "すべてのWebページでコピー機能を利用可能にするために必要",
+      "https://*/*": "すべてのWebページでコピー機能を利用可能にするために必要"
+    },
+    "remote_code": false,
+    "data_collection": {
+      "collects_data": false,
+      "data_types": []
+    },
+    "privacy_policy_url": ""
+  },
+
+  "distribution": {
+    "visibility": "public",
+    "regions": "all"
+  }
+}
