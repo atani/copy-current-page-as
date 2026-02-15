@@ -1,0 +1,12 @@
+# Dependencies
+node_modules/
+
+# Build output
+extension.zip
+
+# Store submission auth (contains session tokens)
+store-assets/scripts/auth.json
+
+# OS files
+.DS_Store
+Thumbs.db
