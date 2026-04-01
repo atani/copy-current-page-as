@@ -33,7 +33,7 @@ jobs:
     if: ${{ needs.release-please.outputs.release_created }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v6.0.2
       - name: Build zip asset
         run: zip -r copy-current-page-as.zip manifest.json src options icons README.md
       - name: Upload to GitHub Release
@@ -48,7 +48,7 @@ jobs:
     if: ${{ needs.release-please.outputs.release_created || inputs.publish_chrome }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v6.0.2
 
       - uses: actions/setup-node@v6
         with:
