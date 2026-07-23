@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.2](https://github.com/atani/copy-current-page-as/compare/v1.0.1...v1.0.2) (2026-07-23)
+
+
+### Bug Fixes
+
+* Chrome Web Store公開をrelease-pleaseワークフローに統合 ([#13](https://github.com/atani/copy-current-page-as/issues/13)) ([57ebd28](https://github.com/atani/copy-current-page-as/commit/57ebd284d564d077ba8e60152be3e9402ea8caa0))
+* **ci:** auto-fix github_actions in /. - Update [#1326015009](https://github.com/atani/copy-current-page-as/issues/1326015009) failure ([#20](https://github.com/atani/copy-current-page-as/issues/20)) ([b6231ff](https://github.com/atani/copy-current-page-as/commit/b6231ffec9e76d43219d70e747dc784c6d10908e))
+
 ## [1.0.1](https://github.com/atani/copy-current-page-as/compare/v1.0.0...v1.0.1) (2026-02-15)
 
 
